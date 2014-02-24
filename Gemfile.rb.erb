@@ -1,0 +1,102 @@
+source 'https://rubygems.org'
+ruby '1.9.3'
+
+def osx_gem(name)   gem(name, :require => RUBY_PLATFORM =~ /darwin/i ? name : false) end
+def linux_gem(name) gem(name, :require => RUBY_PLATFORM =~ /linux/i  ? name : false) end
+def win_gem(name)   gem(name, :require => RUBY_PLATFORM =~ /win/i    ? name : false) end
+
+gem 'rails', '~> 4.0' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rake', :require => false
+
+# Database / Model related gems
+
+gem 'sqlite3', group: 'development'
+gem 'pg' # Use postgresql as the database for Active Record
+gem 'bcrypt-ruby', '~> 3.1.2' # Use ActiveModel has_secure_password
+gem 'validates_email_format_of'
+
+# View/Controller related gems
+
+gem 'slim', '~> 2.0'
+
+<% if @install_activeadmin %>
+group :development, :staging, :production do
+  gem 'activeadmin', github: 'gregbell/active_admin' # For admin panels, we don't require it in test.
+end
+<% end -%>
+
+# Gems used only for assets
+
+gem 'sass-rails', '~> 4.0' # Use SCSS for stylesheets
+gem 'uglifier',   '~> 1.3' # Use Uglifier as compressor for JavaScript assets
+gem 'coffee-rails', '~> 4.0' # Use CoffeeScript for .js.coffee assets and views
+gem 'therubyracer', platforms: :ruby # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'jquery-rails' # Use jquery as the JavaScript library
+gem 'turbolinks' # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+  
+gem 'foundation-rails', '~> 5.0'
+
+# Utility gems
+
+gem 'nokogiri'                # HTML parsing.
+gem 'dalli'                   # Best memcache client
+gem 'jbuilder', '~> 1.2'      # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem "stringex"                # For pretty pretty #to_url
+
+group :doc do
+  gem 'yard' # Documentation generator
+end
+
+group :development do
+  # Notification & File System monitoring for guard
+  osx_gem 'rb-fsevent'
+  osx_gem 'growl'
+  linux_gem "rb-inotify"
+  linux_gem "libnotify"
+
+  gem 'rack-livereload'  # Live reloading of websites in development.
+  gem 'guard'            # --||--
+  gem 'guard-livereload' # --||--
+  gem 'guard-shell'      # Run commands on file changes.
+  gem 'guard-rspec'
+
+  gem "letter_opener"     # Preview mail sent in broser.
+  gem "better_errors"     # Much better error messages in development.
+  gem 'binding_of_caller' # For interactive prompt in better errors.
+
+  # Annotates models and tests with db columns information.
+  gem 'annotate', github: 'swistak/annotate_models', branch: 'develop'
+
+  # gem 'gem-licenses', :git => 'git://github.com/newrelic/gem-licenses.git' # For extracting gem licenses
+end
+
+# Testing & debugging related gems
+
+# See http://iain.nl/getting-the-most-out-of-bundler-groups#toc_5
+group :console do
+  gem 'hirb' # Nice sql-like tables for records in console
+  gem 'pry'  # irb replacement - better console
+  gem 'pry-rails', :require => 'pry-rails/console'
+end
+
+group :development, :test do
+  gem "rspec-rails", "~> 2.0"
+
+  gem "awesome_print"
+  gem 'ffaker'        # Generates fake data.
+
+  # gem 'guard-jasmine' # Allows running Jasmine tests with phantomjs
+  # gem 'jasminerice'   # Allows for wrinting Jasmine with coffeescript
+end
+
+# Server gems & middleware
+
+<% if @heroku %>
+gem 'rails_12factor', group: :production # Heroku compatibility gem. Redirects logs to stdout & serves static assets
+gem "rack-timeout" # Provide a timeout and stacktrace when it occours
+gem 'unicorn' # Use unicorn as the app server
+<% end %>
+
+group :production, :staging do
+  gem 'airbrake', '=3.1.7' # Exception notification and monitoring
+end
