@@ -5,7 +5,7 @@ def osx_gem(name)   gem(name, :require => RUBY_PLATFORM =~ /darwin/i ? name : fa
 def linux_gem(name) gem(name, :require => RUBY_PLATFORM =~ /linux/i  ? name : false) end
 def win_gem(name)   gem(name, :require => RUBY_PLATFORM =~ /win/i    ? name : false) end
 
-gem 'rails', '~> 4.0' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 4.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rake', :require => false
 
 # Database / Model related gems
