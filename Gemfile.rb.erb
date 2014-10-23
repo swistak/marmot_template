@@ -54,6 +54,9 @@ group :development do
   linux_gem "rb-inotify"
   linux_gem "libnotify"
 
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+
   gem 'rack-livereload'  # Live reloading of websites in development.
   gem 'guard'            # --||--
   gem 'guard-livereload' # --||--
