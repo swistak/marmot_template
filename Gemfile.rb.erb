@@ -60,9 +60,9 @@ group :development do
   gem 'guard-shell'      # Run commands on file changes.
   gem 'guard-rspec'
 
-  gem "letter_opener"     # Preview mail sent in broser.
-  gem "better_errors"     # Much better error messages in development.
-  gem 'binding_of_caller' # For interactive prompt in better errors.
+  gem "letter_opener"          # Preview mail sent in broser.
+  gem "better_errors", '~>1.0' # Much better error messages in development.
+  gem 'binding_of_caller'      # For interactive prompt in better errors.
 
   # Annotates models and tests with db columns information.
   gem 'annotate', github: 'swistak/annotate_models', branch: 'develop'
